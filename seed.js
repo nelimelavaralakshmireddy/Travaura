@@ -1,22 +1,38 @@
 const mongoose = require("mongoose");
-const Listing = require("./models/listing"); // This should point to your listing model
-const { data } = require("./init/data"); // Import your sample listings
+const Listing = require("./models/listing");
+const User = require("./models/user");
+const { data } = require("./init/data");
 
-require("dotenv").config(); // To load Atlas DB URL
+require("dotenv").config(); // Load environment variables
 
-const dbUrl = process.env.ATLASDB_URL; // Your MongoDB connection string
+const seedDB = async () => {
+  try {
+    await mongoose.connect(process.env.ATLASDB_URL); // updated to match .env
+    console.log("✅ MongoDB connected!");
 
-main().catch((err) => console.log(err));
+    await Listing.deleteMany({});
+    console.log("🗑️ Old listings removed!");
 
-async function main() {
-  await mongoose.connect(dbUrl); // Connect to Atlas
-  console.log("Database connected");
+    // Ensure at least one user exists
+    let user = await User.findOne();
+    if (!user) {
+      user = new User({ email: "test@example.com", username: "testuser" });
+      await User.register(user, "password123"); // using passport-local-mongoose
+      console.log("👤 Test user created!");
+    }
 
-  await Listing.deleteMany({}); // Remove old listings
-  console.log("Old listings removed");
+    for (let listing of data) {
+      listing.owner = user._id; // assign dummy owner
+      const newListing = new Listing(listing);
+      await newListing.save();
+    }
 
-  await Listing.insertMany(data); // Insert new listings
-  console.log("New listings inserted");
+    console.log("🌱 Database seeded with sample listings!");
+  } catch (err) {
+    console.error("❌ Seeding failed:", err);
+  } finally {
+    mongoose.connection.close();
+  }
+};
 
-  mongoose.connection.close(); // Close connection
-}
+seedDB();
