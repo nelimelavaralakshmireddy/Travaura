@@ -70,37 +70,7 @@ A full-stack web application built with the MERN stack for discovering and shari
 - Cloudinary account
 - OpenCage API key
 
-### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/travaura.git
-   cd travaura
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Environment Setup**
-   Create a `.env` file in the root directory:
-   ```env
-   ATLASDB_URL=your_mongodb_atlas_connection_string
-   CLOUD_NAME=your_cloudinary_cloud_name
-   CLOUD_API_KEY=your_cloudinary_api_key
-   CLOUD_API_SECRET=your_cloudinary_api_secret
-   OPENCAGE_API_KEY=your_opencage_api_key
-   SECRET=your_session_secret
-   ```
-
-4. **Run the application**
-   ```bash
-   node app.js
-   ```
-
-5. **Access the application**
-   Open your browser and navigate to `http://localhost:8080`
 
 ## 📁 Project Structure
 
@@ -188,17 +158,7 @@ travaura/
 - Adaptive layouts for different screen sizes
 - Touch-friendly interface elements
 
-### **Interactive Elements**
-- Hover effects and smooth transitions
-- Active states for navigation and filters
-- Loading states and user feedback
-- Form validation and error handling
 
-### **Visual Design**
-- Modern, clean interface design
-- Consistent color scheme and typography
-- Professional iconography with Font Awesome
-- Engaging animations and micro-interactions
 
 ## 🔒 Security Features
 
@@ -223,18 +183,6 @@ Ensure all required environment variables are set:
 - Set up proper logging and monitoring
 - Configure database indexes for performance
 - Implement rate limiting and security headers
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the ISC License.
 
 ## 👨‍💻 Author
 
