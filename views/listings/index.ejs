@@ -10,14 +10,29 @@
       margin-right: 2rem;
       margin-top: 1rem;
       opacity: 0.7;
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      text-decoration: none;
+      color: inherit;
     }
 
     .filter:hover{
       opacity: 1;
       cursor: pointer;
+      background-color: #f8f9fa;
+      transform: translateY(-2px);
     }
+    
+    .filter.active {
+      opacity: 1;
+      background-color: #fe424d;
+      color: white;
+    }
+    
     .filter p{
       font-size: 0.8rem;
+      margin: 0;
     }
     .tax-info{
       display: none;
@@ -40,54 +55,59 @@
   </style>
     
   <div id="filters">
-     <div class="filter">
+     <a href="/listings?category=trending<%= search ? '&search=' + search : '' %>" class="filter <%= category === 'trending' || !category ? 'active' : '' %>">
       <div><i class="fa-solid fa-fire"></i></div>
       <p>Trending</p> 
-     </div>
-     <div class="filter">
+     </a>
+     <a href="/listings?category=rooms<%= search ? '&search=' + search : '' %>" class="filter <%= category === 'rooms' ? 'active' : '' %>">
       <div><i class="fa-solid fa-bed"></i></div>
       <p>Rooms</p> 
-     </div>
-     <div class="filter">
+     </a>
+     <a href="/listings?category=iconic-city<%= search ? '&search=' + search : '' %>" class="filter <%= category === 'iconic-city' ? 'active' : '' %>">
       <div><i class="fa-solid fa-mountain-city"></i></div>
       <p>Iconic City</p> 
-     </div>
-     <div class="filter">
+     </a>
+     <a href="/listings?category=mountains<%= search ? '&search=' + search : '' %>" class="filter <%= category === 'mountains' ? 'active' : '' %>">
       <div><i class="fa-solid fa-mountain-sun"></i></div>
       <p>Mountains</p> 
-     </div>
-     <div class="filter">
+     </a>
+     <a href="/listings?category=castles<%= search ? '&search=' + search : '' %>" class="filter <%= category === 'castles' ? 'active' : '' %>">
       <div><i class="fa-brands fa-fort-awesome"></i></div>
       <p>Castles</p> 
-     </div>
-     <div class="filter">
+     </a>
+     <a href="/listings?category=arctic<%= search ? '&search=' + search : '' %>" class="filter <%= category === 'arctic' ? 'active' : '' %>">
       <div><i class="fa-regular fa-snowflake"></i></div>
       <p>Arctic</p> 
-     </div>
-     <div class="filter">
+     </a>
+     <a href="/listings?category=camping<%= search ? '&search=' + search : '' %>" class="filter <%= category === 'camping' ? 'active' : '' %>">
       <div><i class="fa-solid fa-tents"></i></div>
       <p>Camping</p> 
-     </div>
-     <div class="filter">
+     </a>
+     <a href="/listings?category=farms<%= search ? '&search=' + search : '' %>" class="filter <%= category === 'farms' ? 'active' : '' %>">
       <div><i class="fa-solid fa-wheat-awn"></i></div>
       <p>Farms</p> 
-     </div>
-     <div class="filter">
+     </a>
+     <a href="/listings?category=amazing-pool<%= search ? '&search=' + search : '' %>" class="filter <%= category === 'amazing-pool' ? 'active' : '' %>">
       <div><i class="fa-solid fa-person-swimming"></i></div>
       <p>Amazing Pool</p> 
-     </div>
-     <div class="filter">
+     </a>
+     <a href="/listings?category=beach<%= search ? '&search=' + search : '' %>" class="filter <%= category === 'beach' ? 'active' : '' %>">
       <div><i class="fa-solid fa-umbrella-beach"></i></div>
       <p>Beach</p> 
-     </div>
-     <div class="filter">
-      <div><i class="fa-solid fa-sailboat"></i></i></div>
+     </a>
+     <a href="/listings?category=island<%= search ? '&search=' + search : '' %>" class="filter <%= category === 'island' ? 'active' : '' %>">
+      <div><i class="fa-solid fa-sailboat"></i></div>
       <p>Island</p> 
-     </div>
-     <div class="filter">
-      <div><i class="fa-solid fa-plane-departure"></i></i></i></div>
+     </a>
+     <a href="/listings?category=foreign-trip<%= search ? '&search=' + search : '' %>" class="filter <%= category === 'foreign-trip' ? 'active' : '' %>">
+      <div><i class="fa-solid fa-plane-departure"></i></div>
       <p>Foreign Trip</p> 
-     </div>
+     </a>
+     
+     <a href="/listings" class="filter <%= !category && !search ? 'active' : '' %>" style="background-color: #6c757d; color: white;">
+      <div><i class="fa-solid fa-times"></i></div>
+      <p>Clear Filters</p> 
+     </a>
      
     <div class="tax-toggle mt-3" >
       <div class="form-check-reverse form-switch">
@@ -97,6 +117,19 @@
     </div>
   </div>
     </div>
+    
+    <% if(search || category) { %>
+    <div class="alert alert-info mt-3" role="alert">
+      <% if(search && category) { %>
+        <i class="fas fa-filter"></i> Filtered results for: "<%= search %>" in <%= category.replace('-', ' ') %> category (<%= allListings.length %> listings found)
+      <% } else if(search) { %>
+        <i class="fas fa-search"></i> Search results for: "<%= search %>" (<%= allListings.length %> listings found)
+      <% } else if(category) { %>
+        <i class="fas fa-filter"></i> Category: <%= category.replace('-', ' ') %> (<%= allListings.length %> listings found)
+      <% } %>
+    </div>
+    <% } %>
+    
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
         <% for(let listing of allListings) { %>
           <a href="/listings/<%= listing._id %>" class="listing-link">

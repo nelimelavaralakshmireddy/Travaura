@@ -52,6 +52,25 @@
     class="form-control"
   /></div>
   
+  <div class="mb-3">
+    <label for="category" class="form-label">Category</label>
+    <select name="listing[category]" class="form-control" required>
+        <option value="">Select a category</option>
+        <option value="trending" <%= listing.category === 'trending' ? 'selected' : '' %>>Trending</option>
+        <option value="rooms" <%= listing.category === 'rooms' ? 'selected' : '' %>>Rooms</option>
+        <option value="iconic-city" <%= listing.category === 'iconic-city' ? 'selected' : '' %>>Iconic City</option>
+        <option value="mountains" <%= listing.category === 'mountains' ? 'selected' : '' %>>Mountains</option>
+        <option value="castles" <%= listing.category === 'castles' ? 'selected' : '' %>>Castles</option>
+        <option value="arctic" <%= listing.category === 'arctic' ? 'selected' : '' %>>Arctic</option>
+        <option value="camping" <%= listing.category === 'camping' ? 'selected' : '' %>>Camping</option>
+        <option value="farms" <%= listing.category === 'farms' ? 'selected' : '' %>>Farms</option>
+        <option value="amazing-pool" <%= listing.category === 'amazing-pool' ? 'selected' : '' %>>Amazing Pool</option>
+        <option value="beach" <%= listing.category === 'beach' ? 'selected' : '' %>>Beach</option>
+        <option value="island" <%= listing.category === 'island' ? 'selected' : '' %>>Island</option>
+        <option value="foreign-trip" <%= listing.category === 'foreign-trip' ? 'selected' : '' %>>Foreign Trip</option>
+    </select>
+  </div>
+  
   <button class="btn btn-dark add-dtn mt-3 edit-btn">Edit</button>
 </form>
  </div>

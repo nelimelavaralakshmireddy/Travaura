@@ -27,10 +27,11 @@ const listingSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-  // category: {
-  //   type: String,
-  //   enum: ["mountains","arctic,farms,desert"],
-  // },
+  category: {
+    type: String,
+    enum: ["trending", "rooms", "iconic-city", "mountains", "castles", "arctic", "camping", "farms", "amazing-pool", "beach", "island", "foreign-trip"],
+    default: "trending"
+  },
     
 });
 listingSchema.post("findOneAndDelete",async(listing) =>{

@@ -13,10 +13,29 @@ const getCoordinates = require("../utils/geocoding");
 router.get(
   "/",
   isLoggedIn,
-  upload.single("listing[image]"),
   wrapAsync(async (req, res) => {
-    const allListings = await Listing.find({});
-    res.render("listings/index.ejs", { allListings });
+    const { search, category } = req.query;
+    let allListings;
+    let filterQuery = {};
+    
+    // Handle search
+    if (search) {
+      filterQuery.$or = [
+        { title: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } },
+        { location: { $regex: search, $options: 'i' } },
+        { country: { $regex: search, $options: 'i' } }
+      ];
+    }
+    
+    // Handle category filter
+    if (category && category !== 'all') {
+      filterQuery.category = category;
+    }
+    
+    allListings = await Listing.find(filterQuery);
+    
+    res.render("listings/index.ejs", { allListings, search, category });
   })
 );
 
@@ -105,6 +124,7 @@ router.put(
     listing.price = req.body.listing.price;
     listing.location = req.body.listing.location;
     listing.country = req.body.listing.country;
+    listing.category = req.body.listing.category;
 
     // Get updated coordinates if location changed
     const coords = await getCoordinates(listing.location);
